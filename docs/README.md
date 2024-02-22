@@ -1,3 +1,191 @@
+#SPANISH/ESPAÑOL
+# Magisk en WSA (con Google Apps)
+
+:warning: Para los desarrolladores de forks: Por favor, no compilen usando GitHub Actions, ya que GitHub contará el uso de GitHub Actions de sus forks contra este repositorio principal, lo que puede provocar que este repositorio principal sea deshabilitado por el personal de GitHub como [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) debido a numerosos forks compilando GitHub Actions, y contando el uso de Actions de los forks contra este repositorio principal.
+
+## Soporte para generar desde estos sistemas
+
+- Linux (x86_64 o arm64)
+
+  Se requieren las siguientes dependencias:
+
+  | DistrOS             |                                                         |            |              |                    |               |              |
+  |:-------------------:|---------------------------------------------------------|------------|--------------|--------------------|---------------|--------------|
+  | Debian              | `lzip patchelf e2fsprogs python3 aria2 attr unzip sudo` | `whiptail` | `qemu-utils` | `python3-venv`     | `python3-pip` | `p7zip-full` |
+  | openSUSE Tumbleweed | Igual que arriba                                       | `dialog`   | `qemu-tools` | `python3-venvctrl` | Igual que arriba                |
+  | Arch                | Igual que Debian                                       | `libnewt`  | `qemu-img`   |  Igual que Debian   | `python-pip`  | `p7zip`      |
+
+  Se utiliza la biblioteca `requests` de python3.
+
+  Versión de Python ≥ **3.7.2**.
+
+  - Uso recomendado
+
+    - Ubuntu (Puedes usar [WSL2](https://apps.microsoft.com/store/search?publisher=Canonical%20Group%20Limited))
+
+      Listo para usar directamente.
+
+    - Debian (Puedes usar [WSL2](https://apps.microsoft.com/store/detail/debian/9MSVKQC78PK6))
+
+      Listo para usar directamente.
+
+    - openSUSE Tumbleweed (Puedes usar [WSL2](https://apps.microsoft.com/store/detail/opensuse-tumbleweed/9MSSK2ZXXN11))
+
+      Listo para usar directamente.
+
+    `run.sh` manejará automáticamente todas las dependencias.
+
+    No es necesario escribir ningún comando.
+
+## Características
+
+- Integra Magisk y GApps en unos pocos clics en cuestión de minutos.
+- Mantén cada compilación actualizada.
+- Soporte tanto para ARM64 como para x64.
+- Soporte para MindTheGapps.
+- Elimina Amazon Appstore.
+- Soluciona el problema del diálogo de VPN que no se muestra (usa nuestra [aplicación VpnDialogs](https://github.com/LSPosed/VpnDialogs)).
+- Añade la función de administración de dispositivos.
+- Instalación no supervisada.
+- Activa automáticamente el modo de desarrollador en Windows 11.
+- Actualización a la nueva versión preservando datos con un script de un clic.
+- Fusiona todos los paquetes de idiomas.
+
+## Guía de texto
+
+1. Dale una estrella (si te gusta).
+2. Clona el repositorio localmente:
+
+   ```bash
+   git clone https://github.com/LSPosed/MagiskOnWSALocal.git --depth 1
+   ```
+
+3. Ejecuta `cd MagiskOnWSALocal`.
+4. Ejecuta `./scripts/run.sh`.
+5. Selecciona la versión de WSA y su arquitectura (en su mayoría x64).
+6. Selecciona la versión de Magisk.
+7. Elige qué marca de GApps quieres instalar:
+   - MindTheGapps
+
+     No hay otra variante que podamos elegir.
+8. Selecciona la solución de root (none significa sin root).
+9. Si estás ejecutando el script por primera vez, tomará algo de tiempo completarlo. Después de que el script se complete, se generarán dos nuevas carpetas llamadas `output` y `download` en la carpeta `MagiskOnWSALocal`. Ve a la carpeta `output`. Mientras ejecutas el script `./run.sh` en el paso 3, si seleccionaste `Sí` para `¿Quieres comprimir la salida?` entonces en la carpeta `output` verás un archivo comprimido llamado `WSA-with-magisk-stable-MindTheGapps_2207.40000.8.0_x64_Release-Nightly`o si no habrá una carpeta con el nombre `WSA-with-magisk-stable-MindTheGapps_2207.40000.8.0_x64_Release-Nightly`. Si hay una carpeta, ábrela y pasa al paso 10. NOTA: El nombre del archivo comprimido o la carpeta generada en la carpeta `output` puede ser diferente para ti. Dependerá de las elecciones hechas al ejecutar `./run.sh`.
+10. Extrae el archivo comprimido y abre la carpeta creada después de la extracción del archivo.
+11. Aquí busca el archivo `Run.bat` y ejecútalo.
+    - Si previamente tienes una instalación de MagiskOnWSA, desinstalará automáticamente la anterior mientras **preserva todos los datos del usuario** e instalará la nueva, así que no te preocupes por tus datos.
+    - Si tienes una instalación oficial de WSA, primero debes desinstalarla. (En caso de que quieras preservar tus datos, puedes hacer una copia de seguridad de `%LOCALAPPDATA%\Packages\MicrosoftCorporationII.WindowsSubsystemForAndroid_8wekyb3d8bbwe\LocalCache\userdata.vhdx` antes de la desinstalación y restaurarla después de la instalación.)
+    - Si las ventanas emergentes desaparecen **sin pedir permiso administrativo** y WSA no se instala correctamente, deberías ejecutar manualmente `Install.ps1` como Administrador:
+        1. Presiona `Win+x` y selecciona `Windows Terminal (Admin)`.
+        2. Ingresa `cd "{X:\ruta\a\tu\carpeta\extraída}"` y presiona `Enter`, y recuerda reemplazar `{X:\ruta\a\tu\carpeta\extraída}` incluyendo las `{}`, por ejemplo `cd "D:\wsa"`
+        3. Ingresa `PowerShell.exe -ExecutionPolicy Bypass -File .\Install.ps1` y presiona `Enter`.
+        4. El script se ejecutará y se instalará WSA.
+        5. Si esta solución no funciona, tu PC no es compatible con WSA.
+12. Se lanzará Magisk/Play Store. Disfruta instalando LSPosed-Zygisk con Zygisk habilitado o Riru y LSPosed-Riru.
+
+---
+
+## P
+
+reguntas frecuentes
+
+<details open>
+
+- ¿Puedo eliminar la carpeta instalada?
+
+  No.
+
+- ¿Cómo puedo actualizar WSA a una versión más nueva?
+
+  1. Actualiza los scripts de compilación:
+
+      ```bash
+      git pull
+      ```
+
+      Para más información sobre el uso de git, consulta <https://git-scm.com/book>
+
+  2. Vuelve a ejecutar el script, reemplaza el contenido de tu instalación anterior y vuelve a ejecutar `Install.ps1`. No te preocupes, tus datos se conservarán.
+
+- ¿Cómo puedo obtener el logcat de WSA?
+
+  `%LOCALAPPDATA%\Packages\MicrosoftCorporationII.WindowsSubsystemForAndroid_8wekyb3d8bbwe\LocalState\diagnostics\logcat`
+
+- ¿Cómo puedo actualizar Magisk a una versión más nueva?
+
+  Haz lo mismo que al actualizar WSA.
+
+- ¿Cómo pasar Play Integrity (anteriormente conocido como SafetyNet)?
+
+  Como todos los demás emuladores, no hay forma.
+
+- ¿La virtualización no está habilitada?
+
+  `Install.ps1` te ayuda a habilitarlo si no está habilitado. Después de reiniciar, vuelve a ejecutar `Install.ps1` para instalar WSA. Si aún no funciona, debes habilitar la virtualización en la BIOS. Es una historia larga, así que pregunta a Google para obtener ayuda.
+
+- ¿Cómo remontar el sistema como lectura-escritura?
+
+  No hay forma en WSA ya que está montado como solo lectura por Hyper-V. Puedes modificar el sistema haciendo un módulo de Magisk. O modifica directamente el sistema.img. Pregunta a Google para obtener ayuda.
+
+- No puedo `adb connect localhost:58526`, ¿qué hago?
+
+  Asegúrate de que el modo desarrollador esté habilitado. Si el problema persiste, verifica la dirección IP de WSA en la página de configuración e intenta `adb connect ip:5555`.
+
+- ¿Por qué el módulo en línea de Magisk está vacío?
+
+  Magisk elimina activamente el repositorio de módulos en línea. Puedes instalar el módulo localmente o mediante `adb push module.zip /data/local/tmp` y `adb shell su -c magisk --install-module /data/local/tmp/module.zip`.
+
+- ¿Puedo usar Magisk v23.0 estable o una versión inferior?
+
+  No. Magisk tiene errores que impiden que se ejecute en WSA. Magisk v24+ los ha solucionado. Así que debes usar Magisk v24 o posterior.
+
+- ¿Cómo me deshago de Magisk?
+
+  Elige `none` como solución de root.
+
+- ¿Cómo instalar GApps personalizados?
+
+  [Tutorial](Custom-GApps.md)
+
+- ¿Dónde puedo descargar MindTheGapps?
+
+  Puedes descargarlo desde aquí [MindTheGapps](https://androidfilehost.com/?w=files&flid=322935) ([mirror](http://downloads.codefi.re/jdcteam/javelinanddart/gapps)).
+
+  Ten en cuenta que no hay una compilación previa para x86_64, así que debes compilarla tú mismo ([Repositorio](https://gitlab.com/MindTheGapps/vendor_gapps)).
+
+  O puedes descargar el paquete construido para 12.1 y 13 para x86_64 desde [esta página](https://sourceforge.net/projects/wsa-mtg/files/x86_64/).
+
+- ¿Puedo cambiar de OpenGApps a MindTheGapps y mantener los datos de usuario en una compilación anterior?
+
+  No. Debes borrar los datos después de cambiar la marca de GApps. De lo contrario, verás que las GApps instaladas no son reconocidas.
+
+- WSA con OpenGApps integrado no arranca.
+
+  OpenGApps aún no ha lanzado una versión construida para Android 12L y 13, solo construida para Android 11, que puede no ser compatible y por lo tanto causar bloqueos. Considera cambiar a MindTheGapps.
+
+- ¿Cómo instalar KernelSU?
+
+  [Tutorial](KernelSU.md)
+
+</details>
+
+---
+
+## Créditos
+
+- [StoreLib](https://github.com/StoreDev/StoreLib): API para descargar WSA
+- [Magisk](https://github.com/topjohnwu/Magisk): La solución de root más famosa en Android
+- [The Open GApps Project](https://opengapps.org): Una de las soluciones de paquetes de Google Apps más famosas
+- [WSA-Kernel-SU](https://github.com/LSPosed/WSA-Kernel-SU) y [kernel-assisted-superuser](https://git.zx2c4.com/kernel-assisted-superuser/): El kernel `su` para depurar la Integración de Magisk
+- [WSAGAScript](https://github.com/ADeltaX/WSAGAScript): El primer script de integración de GApps para WSA
+- [erofs-utils](https://github.com/sekaiacg/erofs-utils): `erofs-utils` precompilado con erofsfuse habilitado
+
+_El repositorio se proporciona como una utilidad._
+
+_Android es una marca comercial de Google LLC. Windows es una marca comercial de Microsoft Corporation._
+
+
+#ENGLISH
+
 # Magisk on WSA (with Google Apps)
 
 :warning: For fork developers: Please don't build using GitHub Actions, as GitHub will count your forked GitHub Actions usage against this upstream repository, which may cause this upstream repository gets disabled by GitHub staff like [MagiskOnWSA](https://github.com/LSPosed/MagiskOnWSA) because of numerous forks building GitHub Actions, and counting the forks' Action usage against this upstream repository.
