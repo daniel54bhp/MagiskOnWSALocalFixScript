@@ -84,9 +84,7 @@
 
 ---
 
-## P
-
-reguntas frecuentes
+## Preguntas frecuentes
 
 <details open>
 
